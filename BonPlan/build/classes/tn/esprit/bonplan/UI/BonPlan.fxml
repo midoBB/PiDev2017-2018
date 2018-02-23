@@ -24,13 +24,21 @@
                         <MenuItem mnemonicParsing="false" onAction="#handleAjouterAPIAction" text="Ajouter à partir de API" />
                         <MenuItem mnemonicParsing="false" onAction="#handleEtabSuggereAction" text="Etablisssement suggerés" />
                         <MenuItem mnemonicParsing="false" onAction="#handleAfficherEtablissementAction" text="Afficher" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Recherche">
-                  <items>
                     <MenuItem mnemonicParsing="false" onAction="#handleRechercherAction" text="Recherche" />
                   </items>
                 </Menu>
+                  <Menu mnemonicParsing="false" text="Promotions">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#handleListePromotionsAction" text="Liste" />
+                        <MenuItem mnemonicParsing="false" text="Recherche" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Evenements">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#handleListeEvenementsAction" text="Liste" />
+                        <MenuItem mnemonicParsing="false" text="Recherche" />
+                    </items>
+                  </Menu>
               </menus>
             </MenuBar>
             <AnchorPane fx:id="ContentPane" prefHeight="465.0" prefWidth="800.0" VBox.vgrow="ALWAYS" />

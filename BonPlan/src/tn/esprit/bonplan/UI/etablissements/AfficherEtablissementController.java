@@ -7,6 +7,8 @@ package tn.esprit.bonplan.UI.etablissements;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -28,11 +30,18 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.Separator;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import tn.esprit.bonplan.entities.Etablissement;
+import tn.esprit.bonplan.enumerations.CategorieEtablissement;
 import tn.esprit.bonplan.services.EtablissementServices;
 import tn.esprit.bonplan.util.Session;
 
@@ -50,20 +59,75 @@ public class AfficherEtablissementController implements Initializable {
 
     static class Cell extends ListCell<Etablissement> {
 
-        HBox h = new HBox();
-        Label nom = new Label();
-        Label adresse = new Label();
-        Label separateur = new Label();
-        Label separateur2 = new Label();
-        Label categorie = new Label();
+        protected final HBox hBox;
+    protected final FontAwesomeIconView  Icon;
+    protected final Separator separator;
+    protected final VBox vBox;
+    protected final Label Nom;
+    protected final Separator separator0;
+    protected final Label Adresse;
+    protected final Separator separator1;
+    protected final Label Telephone;
 
         public Cell() {
             super();
-            h.getChildren().add(nom);
-            h.getChildren().add(separateur);
-            h.getChildren().add(adresse);
-            h.getChildren().add(separateur2);
-            h.getChildren().add(categorie);
+        hBox = new HBox();
+        Icon = new FontAwesomeIconView();
+        separator = new Separator();
+        vBox = new VBox();
+        Nom = new Label();
+        separator0 = new Separator();
+        Adresse = new Label();
+        separator1 = new Separator();
+        Telephone = new Label();
+
+        setId("AnchorPane");
+        setPrefHeight(150.0);
+        setPrefWidth(550.0);
+
+        AnchorPane.setBottomAnchor(hBox, 0.0);
+        AnchorPane.setLeftAnchor(hBox, 0.0);
+        AnchorPane.setRightAnchor(hBox, 0.0);
+        AnchorPane.setTopAnchor(hBox, 0.0);
+        hBox.setPrefHeight(100.0);
+        hBox.setPrefWidth(200.0);
+
+        Icon.setSize("100px");
+        Icon.setTextAlignment(TextAlignment.CENTER);
+        Icon.setWrappingWidth(150.0);
+        Icon.setPickOnBounds(true);
+
+        separator.setOrientation(javafx.geometry.Orientation.VERTICAL);
+        separator.setPrefHeight(148.0);
+        separator.setPrefWidth(16.0);
+
+        HBox.setHgrow(vBox, javafx.scene.layout.Priority.ALWAYS);
+        vBox.setPrefHeight(200.0);
+        vBox.setPrefWidth(100.0);
+
+        Nom.setText("Label");
+        Nom.setFont(new Font(36.0));
+
+        separator0.setPrefWidth(200.0);
+
+        Adresse.setText("Label");
+        Adresse.setWrapText(true);
+        Adresse.setFont(new Font(20.0));
+
+        separator1.setPrefWidth(200.0);
+
+        Telephone.setText("Label");
+        Telephone.setFont(new Font(20.0));
+
+        hBox.getChildren().add(Icon);
+        hBox.getChildren().add(separator);
+        vBox.getChildren().add(Nom);
+        vBox.getChildren().add(separator0);
+        vBox.getChildren().add(Adresse);
+        vBox.getChildren().add(separator1);
+        vBox.getChildren().add(Telephone);
+        hBox.getChildren().add(vBox);
+        
         }
 
         @Override
@@ -72,12 +136,18 @@ public class AfficherEtablissementController implements Initializable {
             setText(null);
             setGraphic(null);
             if (item != null) {
-                nom.setText(item.getNom());
-                separateur.setText("    |    ");
-                separateur2.setText("    |    ");
-                adresse.setText(item.getAdresse());
-                categorie.setText(item.getCategorie().name());
-                setGraphic(h);
+                Nom.setText(item.getNom());
+                Adresse.setText(item.getAdresse());
+                if(item.getCategorie() == CategorieEtablissement.Bar)
+                    Icon.setIcon(FontAwesomeIcon.BEER);
+                if(item.getCategorie() == CategorieEtablissement.Cafe)
+                    Icon.setIcon(FontAwesomeIcon.COFFEE);
+                if(item.getCategorie() == CategorieEtablissement.Hotel)
+                    Icon.setIcon(FontAwesomeIcon.HOTEL);
+                if(item.getCategorie() == CategorieEtablissement.Restaurent)
+                    Icon.setIcon(FontAwesomeIcon.SPOON);
+                Telephone.setText(item.getTelephone());
+                setGraphic(hBox);
             }
         }
 

@@ -113,4 +113,26 @@ public class BonPlanController implements Initializable {
             ex.printStackTrace();
         }
     }
+
+    @FXML
+    private void handleListePromotionsAction(ActionEvent event) {
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("promotions/ListePromotions.fxml"));
+            setMainContent(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleListeEvenementsAction(ActionEvent event) {
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("evenements/ListeEvenement.fxml"));
+            setMainContent(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 }
