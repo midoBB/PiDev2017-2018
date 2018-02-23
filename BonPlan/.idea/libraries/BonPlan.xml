@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="BonPlan">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/BonPlan.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

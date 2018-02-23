@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tn.esprit.bonplan.UI;
+package tn.esprit.bonplan.UI.etablissements;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXListView;
 import java.io.IOException;
 import java.net.URL;
@@ -29,14 +28,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Callback;
 import tn.esprit.bonplan.entities.Etablissement;
 import tn.esprit.bonplan.services.EtablissementServices;
 import tn.esprit.bonplan.util.Session;
@@ -59,12 +54,16 @@ public class AfficherEtablissementController implements Initializable {
         Label nom = new Label();
         Label adresse = new Label();
         Label separateur = new Label();
+        Label separateur2 = new Label();
+        Label categorie = new Label();
 
         public Cell() {
             super();
             h.getChildren().add(nom);
             h.getChildren().add(separateur);
             h.getChildren().add(adresse);
+            h.getChildren().add(separateur2);
+            h.getChildren().add(categorie);
         }
 
         @Override
@@ -75,7 +74,9 @@ public class AfficherEtablissementController implements Initializable {
             if (item != null) {
                 nom.setText(item.getNom());
                 separateur.setText("    |    ");
+                separateur2.setText("    |    ");
                 adresse.setText(item.getAdresse());
+                categorie.setText(item.getCategorie().name());
                 setGraphic(h);
             }
         }
@@ -88,9 +89,12 @@ public class AfficherEtablissementController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            ObservableList<Etablissement> etabList = FXCollections.observableArrayList(EtablissementServices.selectEtablissements());
-            List<String> l = etabList.stream().map(e -> e.getNom()).collect(Collectors.toList());
-            ObservableList<String> s = FXCollections.observableList(l);
+            ObservableList<Etablissement> etabList;
+            if (Session.getPassedParameter() instanceof List) {
+                etabList = FXCollections.observableArrayList((List<Etablissement>) Session.getPassedParameter());
+            } else {
+                etabList = FXCollections.observableArrayList(EtablissementServices.selectEtablissements());
+            }
             ListView.setItems(etabList);
             ListView.setCellFactory(param -> new Cell());
         } catch (Exception e) {
@@ -125,16 +129,22 @@ public class AfficherEtablissementController implements Initializable {
     @FXML
     private void handleModifierButtonAction(ActionEvent event) {
         try {
-            final FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifierEtablissement.fxml"));
-            loader.setController(new ModifierEtablissementController(ListView.getSelectionModel().getSelectedItem()));
-            final Parent root = loader.load();
-            final Scene scene = new Scene(root, 600, 600);
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initStyle(StageStyle.DECORATED);
-            stage.initOwner(ListView.getScene().getWindow());
-            stage.setScene(scene);
-            stage.show();
+            Session.setPassedParameter(ListView.getSelectionModel().getSelectedItem());
+            Parent root = FXMLLoader.load(getClass().getResource("ModifierEtablissement.fxml"));
+            Session.setLastView(Session.getMainController().getMainContent());
+            Session.getMainController().setMainContent(root);
+        } catch (IOException ex) {
+            Logger.getLogger(AfficherEtablissementController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void handleDetailsButtonAction(ActionEvent event) {
+        try {
+            Session.setPassedParameter(ListView.getSelectionModel().getSelectedItem());
+            Parent root = FXMLLoader.load(getClass().getResource("AffichageDetailsEtablissement.fxml"));
+            Session.setLastView(Session.getMainController().getMainContent());
+            Session.getMainController().setMainContent(root);
         } catch (IOException ex) {
             Logger.getLogger(AfficherEtablissementController.class.getName()).log(Level.SEVERE, null, ex);
         }

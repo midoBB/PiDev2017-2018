@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<HBox xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.bonplan.UI.etablissements.AfficherEtablissementController">
+   <children>
+      <HBox prefHeight="540.0" prefWidth="800.0">
+         <children>
+            <ScrollPane prefHeight="540.0" prefWidth="707.0">
+               <content>
+                  <JFXListView fx:id="ListView" prefHeight="540.0" prefWidth="680.0" />
+               </content>
+            </ScrollPane>
+            <VBox prefHeight="540.0" prefWidth="190.0">
+               <children>
+                  <JFXButton onAction="#handleDetailsButtonAction" text="Détails" />
+                  <JFXButton onAction="#handleSupprimerButtonAction" text="Supprimer" />
+                  <JFXButton fx:id="handleModifierButtonAction" onAction="#handleModifierButtonAction" text="Modifier" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</HBox>

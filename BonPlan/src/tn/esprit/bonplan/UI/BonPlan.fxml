@@ -5,6 +5,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.StatusBar?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.bonplan.UI.BonPlanController">
    <children>
@@ -20,17 +21,20 @@
                 <Menu mnemonicParsing="false" text="Etablissement">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#handleAjouterEtablissementAction" text="Ajouter" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleAjouterAPIAction" text="Ajouter à partir de API" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleEtabSuggereAction" text="Etablisssement suggerés" />
                         <MenuItem mnemonicParsing="false" onAction="#handleAfficherEtablissementAction" text="Afficher" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Recherche">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
+                    <MenuItem mnemonicParsing="false" onAction="#handleRechercherAction" text="Recherche" />
                   </items>
                 </Menu>
               </menus>
             </MenuBar>
-            <AnchorPane fx:id="ContentPane" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <AnchorPane fx:id="ContentPane" prefHeight="465.0" prefWidth="800.0" VBox.vgrow="ALWAYS" />
+            <StatusBar fx:id="Status" />
          </children>
       </VBox>
    </children>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tn.esprit.bonplan.UI;
+package tn.esprit.bonplan.UI.etablissements;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -35,6 +35,7 @@ import javafx.util.Duration;
 import tn.esprit.bonplan.entities.Etablissement;
 import tn.esprit.bonplan.enumerations.CategorieEtablissement;
 import tn.esprit.bonplan.services.EtablissementServices;
+import tn.esprit.bonplan.util.RemoteFileHandler;
 
 /**
  * FXML Controller class
@@ -130,14 +131,18 @@ public class AjouterEtablissementController implements Initializable {
 
     @FXML
     private void handleAjouterButtonAction(ActionEvent event) {
+        
         if(isInputValid()){
             try {
                 Etablissement newEtablissement = new Etablissement(NomField.getText(),  CategorieEtablissement.valueOf(CategorieField.getSelectionModel().getSelectedIndex()),
                         AdresseField.getText(), DescriptionField.getText()
-                        , TelephoneField.getText(), FacebookField.getText(), SiteField.getText(), HoraireField.getText(), SelectedFileProperty.get(), true);
+                        , TelephoneField.getText(), FacebookField.getText(), SiteField.getText(), HoraireField.getText(), SelectedFileProperty.get().getName(), true);
                 EtablissementServices.insertEtablissement(newEtablissement);
+                RemoteFileHandler.upload(SelectedFileProperty.get().getCanonicalFile());
             } catch (SQLException | FileNotFoundException ex) {
                 Logger.getLogger(AjouterEtablissementController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                System.out.println(ex);
             }
         }
         

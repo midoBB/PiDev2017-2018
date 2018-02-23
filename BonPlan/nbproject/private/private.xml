@@ -3,12 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/UI/ModifierEtablissementController.java</file>
-            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/UI/AfficherEtablissementController.java</file>
-            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/UI/AjouterEtablissementController.java</file>
-            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/enumerations/CategorieEtablissement.java</file>
+            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/services/EtablissementSuggeresServices.java</file>
+            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/UI/etablissements/AfficherEtablissementController.java</file>
+            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/UI/etablissements/ResultatRechercheEtablissementController.java</file>
             <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/services/EtablissementServices.java</file>
-            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/util/DataSource.java</file>
+            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/UI/etablissements/ModifierEtablissement.fxml</file>
+            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/UI/etablissements/AfficherSugesstionEtablissementController.java</file>
+            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/UI/etablissements/RechercheEtablissementController.java</file>
+            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/UI/etablissements/RechercheEtablissement.fxml</file>
+            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/UI/etablissements/ModifierEtablissementController.java</file>
+            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/UI/etablissements/AfficherSugesstionEtablissement.fxml</file>
+            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/UI/BonPlan.java</file>
+            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/UI/etablissements/AfficherEtablissement.fxml</file>
+            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/UI/etablissements/AffichageDetailsEtablissementController.java</file>
+            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/UI/etablissements/ResultatRechercheEtablissement.fxml</file>
+            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/UI/etablissements/AjoutEtablissementAPI.fxml</file>
+            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/UI/etablissements/AffichageDetailsEtablissement.fxml</file>
+            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/UI/etablissements/AjouterEtablissement.fxml</file>
+            <file>file:/C:/Users/Mohamed/Downloads/NetBeansProjects/NetBeansProjects/BonPlan/src/tn/esprit/bonplan/UI/BonPlanController.java</file>
         </group>
     </open-files>
 </project-private>

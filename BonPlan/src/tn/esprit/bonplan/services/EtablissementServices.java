@@ -42,10 +42,7 @@ public class EtablissementServices {
         statement.setString(6, e.getFacebook());
         statement.setString(7, e.getSite());
         statement.setString(8, e.getHoraire());
-        if(e.getMenu() != null)
-            statement.setBlob(9, new FileInputStream(e.getMenu()));
-        else
-            statement.setBlob(9, new ByteArrayInputStream("".getBytes()));
+        statement.setString(9,e.getMenu());
         statement.setBoolean(10, e.getVerified());
         statement.executeUpdate();
     }
@@ -62,7 +59,7 @@ public class EtablissementServices {
         statement.setString(6, e.getFacebook());
         statement.setString(7, e.getSite());
         statement.setString(8, e.getHoraire());
-        statement.setBlob(9, new FileInputStream(e.getMenu()));
+        statement.setString(9, e.getMenu());
         statement.setBoolean(10, e.getVerified());
         statement.setInt(11, e.getRef());
         statement.executeUpdate();
@@ -82,16 +79,9 @@ public class EtablissementServices {
         PreparedStatement ste = ds.getConnection().prepareStatement(req);
         ResultSet result = ste.executeQuery();
         while (result.next()) {
-            Blob blob = result.getBlob("menu");
-            InputStream in = blob.getBinaryStream();
-            File f = File.createTempFile("BonPLan", ".pdf");
-            OutputStream out = new FileOutputStream(f);
-            byte[] buff = blob.getBytes(1, (int) blob.length());
-            out.write(buff);
-            out.close();
             list.add(new Etablissement(result.getInt("ref"), result.getString("nom"), CategorieEtablissement.valueOf(result.getInt("categorie")),
                     result.getString("adresse"), result.getString("description"), result.getString("telephone"), result.getString("facebook"),
-                    result.getString("site"), result.getString("horaire"), f, result.getBoolean("verified")));
+                    result.getString("site"), result.getString("horaire"), result.getString("menu"), result.getBoolean("verified")));
         }
         return list;
     }
@@ -102,16 +92,9 @@ public class EtablissementServices {
         ste.setInt(1, id);
         ResultSet result = ste.executeQuery();
         while (result.next()) {
-            Blob blob = result.getBlob("menu");
-            InputStream in = blob.getBinaryStream();
-            File f = File.createTempFile("BonPLan", ".pdf");
-            OutputStream out = new FileOutputStream(f);
-            byte[] buff = blob.getBytes(1, (int) blob.length());
-            out.write(buff);
-            out.close();
             list.add(new Etablissement(result.getInt("ref"), result.getString("nom"), CategorieEtablissement.valueOf(result.getInt("categorie")),
                     result.getString("adresse"), result.getString("description"), result.getString("telephone"), result.getString("facebook"),
-                    result.getString("site"), result.getString("horaire"), f, result.getBoolean("telephone")));
+                    result.getString("site"), result.getString("horaire"), result.getString("menu"), result.getBoolean("telephone")));
         }
         return list.get(0);
     }

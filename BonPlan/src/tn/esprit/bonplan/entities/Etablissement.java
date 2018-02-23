@@ -15,7 +15,7 @@ public class Etablissement {
     private String _Facebook;
     private String _Site;
     private String _Horaire;
-    private File _Menu;
+    private String _Menu;
     private boolean _Verified;
 
     public int getRef() {
@@ -42,7 +42,7 @@ public class Etablissement {
         _Categorie = value;
     }
 
-    public Etablissement(String _Nom, CategorieEtablissement _Categorie, String _Adresse, String _Description, String _Telephone, String _Facebook, String _Site, String _Horaire, File _Menu, boolean _Verified) {
+    public Etablissement(String _Nom, CategorieEtablissement _Categorie, String _Adresse, String _Description, String _Telephone, String _Facebook, String _Site, String _Horaire, String _Menu, boolean _Verified) {
         this._Nom = _Nom;
         this._Categorie = _Categorie;
         this._Adresse = _Adresse;
@@ -56,7 +56,7 @@ public class Etablissement {
     }
 
     public Etablissement(int _Ref, String _Nom, CategorieEtablissement _Categorie, String _Adresse, String _Description, String _Telephone, 
-            String _Facebook, String _Site, String _Horaire, File _Menu, boolean _Verified) {
+            String _Facebook, String _Site, String _Horaire, String _Menu, boolean _Verified) {
         this._Ref = _Ref;
         this._Nom = _Nom;
         this._Categorie = _Categorie;
@@ -121,11 +121,11 @@ public class Etablissement {
         _Horaire = value;
     }
 
-    public File getMenu() {
+    public String getMenu() {
         return _Menu;
     }
 
-    public void setMenu(File value) {
+    public void setMenu(String value) {
         _Menu = value;
     }
 

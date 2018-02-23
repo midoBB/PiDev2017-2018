@@ -13,11 +13,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
+import org.controlsfx.control.StatusBar;
+import tn.esprit.bonplan.util.Session;
 
 /**
  *
@@ -27,12 +30,23 @@ public class BonPlanController implements Initializable {
 
     @FXML
     private AnchorPane ContentPane;
+    @FXML
+    private StatusBar Status;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        Session.setMainController(this);
     }
-
+    public void setStatus(String statusText){
+        Status.setText(statusText);
+    }
+    public void setMainContent(Node content){
+         ContentPane.getChildren().removeAll(ContentPane.getChildren().sorted());
+         ContentPane.getChildren().add(content);
+    }
+    public Node getMainContent(){
+        return ContentPane.getChildren().get(0);
+    }
     @FXML
     private void handleQuitterAction(ActionEvent event) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -50,9 +64,9 @@ public class BonPlanController implements Initializable {
     private void handleAjouterEtablissementAction(ActionEvent event) {
         Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource("AjouterEtablissement.fxml"));
-            ContentPane.getChildren().removeAll(ContentPane.getChildren().sorted());
-            ContentPane.getChildren().add(root);
+            Session.setPassedParameter(null);
+            root = FXMLLoader.load(getClass().getResource("etablissements/AjouterEtablissement.fxml"));
+            setMainContent(root);
         } catch (IOException ex) {
         }
     }
@@ -61,11 +75,42 @@ public class BonPlanController implements Initializable {
     private void handleAfficherEtablissementAction(ActionEvent event) {
         Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource("AfficherEtablissement.fxml"));
-            ContentPane.getChildren().removeAll(ContentPane.getChildren().sorted());
-            ContentPane.getChildren().add(root);
+            Session.setPassedParameter(null);
+            root = FXMLLoader.load(getClass().getResource("etablissements/AfficherEtablissement.fxml"));
+            setMainContent(root);
+        } catch (IOException ex) {
+        }
+    }
+    @FXML
+    void handleAjouterAPIAction(ActionEvent event) {
+        Parent root;
+        try {
+            Session.setPassedParameter(null);
+            root = FXMLLoader.load(getClass().getResource("etablissements/AjoutEtablissementAPI.fxml"));
+            setMainContent(root);
         } catch (IOException ex) {
         }
     }
 
+    @FXML
+    private void handleRechercherAction(ActionEvent event) {
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("etablissements/RechercheEtablissement.fxml"));
+            setMainContent(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleEtabSuggereAction(ActionEvent event) {
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("etablissements/AfficherSugesstionEtablissement.fxml"));
+            setMainContent(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 }
