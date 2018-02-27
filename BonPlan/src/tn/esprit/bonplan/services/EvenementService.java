@@ -30,7 +30,7 @@ public class EvenementService {
             PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
              
             ste.setString(1,e.getNom()) ; 
-            ste.setString(2,e.getRefEtab()) ; 
+            ste.setInt(2,e.getRefEtab()) ; 
             ste.setString(3,e.getDateDebut());
             ste.setString(4,e.getDateFin());
             ste.setString(5,e.getDescription());
@@ -49,7 +49,7 @@ public class EvenementService {
             PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
              
             ste.setString(1,e.getNom()) ; 
-            ste.setString(2,e.getRefEtab()) ; 
+            ste.setInt(2,e.getRefEtab()) ; 
             ste.setString(3,e.getDateDebut());
             ste.setString(4,e.getDateFin());
             ste.setString(5,e.getDescription());
@@ -70,7 +70,7 @@ public class EvenementService {
             PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
              
             ste.setString(1,e.getNom()) ; 
-            ste.setString(2,e.getRefEtab()) ; 
+            ste.setInt(2,e.getRefEtab()) ; 
             ste.setString(3,e.getDateDebut());
             ste.setString(4,e.getDateFin());
             ste.setString(5,e.getDescription());
@@ -124,7 +124,32 @@ public class EvenementService {
             list.add(new Evenement(
                                     result.getInt("Ref"),
                                     result.getString("nom"),
-                                    result.getString("ref_etab"),
+                                    result.getInt("ref_etab"),
+                                    result.getString("date_debut"),
+                                    result.getString("date_fin"),
+                                    result.getString("description"),
+                                    result.getString("image")
+            )); 
+            }
+            
+        } catch (SQLException ex) {
+            
+        }
+    return list ; 
+      }
+     public static List<Evenement> selectEvenementAr ()
+    {
+        List<Evenement> list =new ArrayList<>() ; 
+    String req ; 
+        req = "SELECT *  FROM archiveev ";
+        try { 
+            PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
+             ResultSet result =ste.executeQuery() ; 
+            while (result.next()){
+            list.add(new Evenement(
+                                    result.getInt("Ref"),
+                                    result.getString("nom"),
+                                    result.getInt("ref_etab"),
                                     result.getString("date_debut"),
                                     result.getString("date_fin"),
                                     result.getString("description"),

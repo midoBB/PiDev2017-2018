@@ -33,7 +33,7 @@ public class PromotionService {
             PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
              
             ste.setString(1,p.getProduit()) ; 
-            ste.setString(2,p.getRefEtab()) ; 
+            ste.setInt(2,p.getRefEtab()) ; 
             ste.setString(3,p.getDateDebut());
             ste.setString(4,p.getDateFin());
             ste.setString(5,p.getDescription());
@@ -60,7 +60,7 @@ public class PromotionService {
             PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
              
             ste.setString(1,p.getProduit()) ; 
-            ste.setString(2,p.getRefEtab()) ; 
+            ste.setInt(2,p.getRefEtab()) ; 
             ste.setString(3,p.getDateDebut());
             ste.setString(4,p.getDateFin());
             ste.setString(5,p.getDescription());
@@ -69,7 +69,7 @@ public class PromotionService {
             ste.setInt(8,p.getCota()) ;
            ste.setFloat(9,p.getPrix() - (p.getPrix()*p.getCota()/100));
             ste.setInt(10,p.getCoupon()) ;
-             ste.setInt(11, p.getCoupon());
+             ste.setInt(11, p.getCouponDispo());
             
             ste.executeUpdate() ; 
             
@@ -88,7 +88,7 @@ public class PromotionService {
             PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
              
             ste.setString(1,p.getProduit()) ; 
-            ste.setString(2,p.getRefEtab()) ; 
+            ste.setInt(2,p.getRefEtab()) ; 
             ste.setString(3,p.getDateDebut());
             ste.setString(4,p.getDateFin());
             ste.setString(5,p.getDescription());
@@ -150,7 +150,7 @@ public class PromotionService {
                                   
                                     result.getInt("ref"),
                                     result.getString("produit"),
-                                    result.getString("ref_etab"),
+                                    result.getInt("ref_etab"),
                                     result.getString("date_debut"),
                                     result.getString("date_fin"),
                                     result.getString("description"),
@@ -168,15 +168,49 @@ public class PromotionService {
         }
     return list ; 
       }
-  
+  public static List<Promotion> selectPromotionAr ()
+    {
+        List<Promotion> list =new ArrayList<>() ; 
+    String req ; 
+        req = "SELECT *  FROM archivepr";
+        try { 
+            PreparedStatement ste = ds.getConnection().prepareStatement(req) ;
+             ResultSet result =ste.executeQuery() ; 
+            while (result.next()){
+            list.add(new Promotion(
+                                  
+                                    result.getInt("ref"),
+                                    result.getString("produit"),
+                                    result.getInt("ref_etab"),
+                                    result.getString("date_debut"),
+                                    result.getString("date_fin"),
+                                    result.getString("description"),
+                                    result.getString("image"),
+                                    result.getFloat("prix"),
+                                    result.getInt("cota"),
+                                    result.getFloat("prix_promo"),
+                                    result.getInt("coupon"),
+                                    result.getInt("coupon_dispo")
+            )); 
+            }
+            
+        } catch (SQLException ex) {
+            
+        }
+    return list ; 
+      }
      
     
     public static void  participer (Promotion p){
-        if(p.getCouponDispo() > 2){
+        if(p.getCouponDispo() > 1){
             p.setCouponDispo(p.getCouponDispo()-1);
             updatePromotion(p);
+            
         }
         else
+            p.setCouponDispo(0);
+        insererArPromotion(p);
+        
             DeletPromotion(p);
     }
     public static String genererHash() throws NoSuchAlgorithmException{
