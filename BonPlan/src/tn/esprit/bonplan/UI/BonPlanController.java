@@ -36,6 +36,13 @@ public class BonPlanController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Session.setMainController(this);
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("users/login.fxml"));
+            setMainContent(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     public void setStatus(String statusText){
         Status.setText(statusText);
@@ -130,6 +137,28 @@ public class BonPlanController implements Initializable {
         Parent root;
         try {
             root = FXMLLoader.load(getClass().getResource("evenements/ListeEvenement.fxml"));
+            setMainContent(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleUserAction1(ActionEvent event) {
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("users/SuppressionControllerProfile.fxml"));
+            setMainContent(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handelreserrvationaction(ActionEvent event) {
+         Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("reservation/ListeReservations.fxml"));
             setMainContent(root);
         } catch (IOException ex) {
             ex.printStackTrace();

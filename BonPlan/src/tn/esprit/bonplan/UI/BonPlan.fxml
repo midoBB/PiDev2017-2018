@@ -30,13 +30,17 @@
                   <Menu mnemonicParsing="false" text="Promotions">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#handleListePromotionsAction" text="Liste" />
-                        <MenuItem mnemonicParsing="false" text="Recherche" />
+                        <MenuItem mnemonicParsing="false" onAction="#handelreserrvationaction" text="Reservation" />
                     </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Evenements">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#handleListeEvenementsAction" text="Liste" />
-                        <MenuItem mnemonicParsing="false" text="Recherche" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Utilisateur">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#handleUserAction1" text="Action 1" />
                     </items>
                   </Menu>
               </menus>
