@@ -32,14 +32,18 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextArea;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.collections.transformation.FilteredList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -58,9 +62,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import tn.esprit.bonplan.entities.Etablissement;
+import tn.esprit.bonplan.entities.Evenement;
 import tn.esprit.bonplan.entities.Promotion;
+import tn.esprit.bonplan.entities.Reservation;
 import tn.esprit.bonplan.enumerations.CategorieEtablissement;
+import tn.esprit.bonplan.services.EtablissementServices;
 import tn.esprit.bonplan.services.PromotionService;
+import tn.esprit.bonplan.services.ReservationService;
 import tn.esprit.bonplan.util.RemoteFileHandler;
 import tn.esprit.bonplan.util.Session;
 
@@ -73,6 +81,8 @@ public class ListePromotionsController implements Initializable {
 
     @FXML
     private JFXListView<Promotion> List;
+    @FXML
+    private JFXTextArea rech;
 
     static class Cell extends ListCell<Promotion> {
 
@@ -168,20 +178,27 @@ public class ListePromotionsController implements Initializable {
             setText(null);
             setGraphic(null);
             if (item != null) {
-                Etab.setText(item.getRefEtab());
-                produit.setText(item.getProduit());
-                prix.setText("" + item.getPrix() + " TND");
-                prixred.setText("" + item.getPrix_promo() + " TND");
-                prixred.setEffect(new Glow());
-                duree.setText("Du " + item.getDateDebut() + " jusqu'a " + item.getDateFin());
-                coupon.setText("" + item.getCouponDispo());
-                cota.setText("" + item.getCota() + "%");
                 try {
-                    image.setImage(new Image(new FileInputStream(RemoteFileHandler.download(item.getImage()))));
-                } catch (Exception ex) {
+                    Etab.setText(EtablissementServices.selectEtablissement(item.getRefEtab()).getNom());
+                    produit.setText(item.getProduit());
+                    prix.setText("" + item.getPrix() + " TND");
+                    prixred.setText("" + item.getPrix_promo() + " TND");
+                    prixred.setEffect(new Glow());
+                    duree.setText("Du " + item.getDateDebut() + " jusqu'a " + item.getDateFin());
+                    coupon.setText("" + item.getCouponDispo());
+                    cota.setText("" + item.getCota() + "%");
+                    try {
+                        image.setImage(new Image(new FileInputStream(RemoteFileHandler.download(item.getImage()))));
+                    } catch (Exception ex) {
+                        Logger.getLogger(ListePromotionsController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    setGraphic(hBox);
+                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(ListePromotionsController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
                     Logger.getLogger(ListePromotionsController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                setGraphic(hBox);
 
             }
         }
@@ -196,6 +213,52 @@ public class ListePromotionsController implements Initializable {
         ObservableList<Promotion> listePromotion = FXCollections.observableArrayList(PromotionService.selectPromotion());
         List.setItems(listePromotion);
         List.setCellFactory(param -> new Cell());
+                  List.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+    @Override
+    public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
+        //Check whether item is selected and set value of selected item to Label
+        if(List.getSelectionModel().getSelectedItem() != null) 
+        {    
+           
+           System.out.println("Selected Value" + List.getSelectionModel().getSelectedItem());
+         //  listeEvenement=Liste.getSelectionModel().getSelectedItem();
+           
+         }
+         }
+     });
+       
+     
+        // 1. Wrap the ObservableList in a FilteredList (initially display all data).
+        FilteredList<Promotion> filteredData = new FilteredList<>(listePromotion, p -> true);
+
+        // 2. Set the filter Predicate whenever the filter changes.
+        rech.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(event -> {
+                // If filter text is empty, display all persons.
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Compare first name and last name of every person with filter text.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                try {
+                    if (EtablissementServices.selectEtablissement(event.getRefEtab()).getNom().toLowerCase().contains(lowerCaseFilter) || event.getProduit().toLowerCase().contains(lowerCaseFilter))
+                    {
+                        return true; // Filter matches first name.
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(ListePromotionsController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(ListePromotionsController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                return false; // Does not match.
+            });
+        });
+
+       
+        List.setItems(filteredData);
+        
 
     }
 
@@ -238,8 +301,12 @@ public class ListePromotionsController implements Initializable {
     @FXML
     private void participerPr(ActionEvent event) throws IOException, NoSuchAlgorithmException {
         PromotionService.participer(List.getSelectionModel().getSelectedItem());
+         String myWeb = PromotionService.genererHash();
+        Reservation r = new Reservation(List.getSelectionModel().getSelectedItem().getRefEtab(), Session.getLoggedInUser().getId(), List.getSelectionModel().getSelectedItem().getRef()
+                , myWeb);
+        ReservationService.insererReservation(r);
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        String myWeb = PromotionService.genererHash();
+       
         int width = 300;
         int height = 300;
         String fileType = "png";
