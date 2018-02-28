@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.Rating?>
+
+<AnchorPane id="AnchorPane" prefHeight="738.0" prefWidth="1099.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.bonplan.UI.etablissements.reviewController">
+   <children>
+      <Pane layoutX="-6.0" layoutY="-1.0" prefHeight="111.0" prefWidth="927.0" AnchorPane.leftAnchor="-6.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
+         <children>
+            <Label fx:id="etabname" layoutX="44.0" layoutY="32.0" text="Nom du restaurant">
+               <font>
+                  <Font name="Century Gothic Bold" size="36.0" />
+               </font></Label>
+            <Rating fx:id="noteEtab" layoutX="500.0" layoutY="39.0" partialRating="true" />
+         </children>
+      </Pane>
+      <JFXTextArea fx:id="etabdesc" layoutX="14.0" layoutY="122.0" prefHeight="120.0" prefWidth="530.0" text=" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent in diam et eros faucibus egestas vel eget lectus. Donec ac faucibus nisl. Donec euismod dui felis, sed laoreet tortor dignissim ut. Sed porta velit id purus venenatis ullamcorper. Integer varius odio vel ante viverra, vitae commodo massa feugiat. Nam sed aliquam elit, at tristique purus. Aliquam eu dolor rutrum, ornare lacus eget, congue ipsum. Ut et accumsan nulla. Nullam dapibus rhoncus fermentum.&#10;&#10;Suspendisse malesuada dictum arcu et venenatis. Nunc eu pulvinar dui. Praesent eget mauris in mauris iaculis tincidunt. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam tortor urna, faucibus vel ex sit amet, porttitor mattis libero. Suspendisse non risus faucibus tortor auctor sodales. Cras eu est ornare, porttitor tellus id, rhoncus lorem. Quisque at gravida mauris. Nulla ut enim feugiat, bibendum mauris sit amet, tristique sapien. Duis vitae lectus justo. Ut laoreet nulla eu mi aliquet auctor. Aenean posuere a ex eu porta. Vivamus id rutrum massa. Proin at vehicula sem. " AnchorPane.leftAnchor="10.0" />
+      <JFXListView fx:id="listReview" layoutX="27.0" layoutY="325.0" prefHeight="390.0" prefWidth="577.0" />
+      <Pane layoutX="624.0" layoutY="110.0" prefHeight="629.0" prefWidth="30.0" AnchorPane.bottomAnchor="-1.0" />
+      <StackPane fx:id="stackPane" layoutY="272.0" prefHeight="30.0" prefWidth="624.0">
+         <children> 
+            <JFXButton fx:id="addReview" onAction="#loadDialog" prefHeight="30.0" prefWidth="100.0" text="Ajouter" textAlignment="CENTER">
+               <font>
+                  <Font name="Century Gothic" size="15.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="400.0" />
+               </StackPane.margin>
+            </JFXButton>
+            <Label text="Avis">
+               <font>
+                  <Font name="Century Gothic Bold" size="18.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets right="425.0" />
+               </StackPane.margin>
+            </Label>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>
